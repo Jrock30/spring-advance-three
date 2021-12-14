@@ -88,3 +88,16 @@
 - AOP 프록시
   - AOP 기능을 구현하기 위해 만든 프록시 객체, 스프링에서 AOP 프록시는 JDK 동적 프록시 또는 CGLIB 프록시이다.
 ---
+
+## Spring AOP 기능
+ - @Aspect
+ - @Order
+ - @Pointcut (표현식 패턴)
+ - @Around (advice)
+### Advice 종류
+- @Around : 메서드 호출 전후에 수행, 가장 강력한 어드바이스, 조인 포인트 실행 여부 선택, 반환 값 변환, 예외 변환 등이 가능
+  - 아래의 4개를 한번에 사용한다고 보자.
+- @Before : 조인 포인트(target) 실행 이전에 실행
+- @AfterReturning : 조인 포인트(target)가 정상 완료후 실행 
+- @AfterThrowing : 메서드가 예외를 던지는 경우 실행
+- @After : 조인 포인트(target)가 정상 또는 예외에 관계없이 실행(finally)
