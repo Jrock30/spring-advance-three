@@ -6,9 +6,12 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 
+/**
+ * AOP 개념정리는 V3 참조
+ */
 @Slf4j
 @Aspect // 애스펙트라는 표식이지 컴포넌트 스캔이 되는 것은 아니다. 따라서 AspectV1 를 AOP 로 사용하려면 스프링 빈으로 등록해야 한다.
-public class AspectV2 {
+public class AspectV3 {
 
     /**
      *  - @Pointcut 에 포인트컷 표현식을 사용한다.
@@ -22,6 +25,24 @@ public class AspectV2 {
     // hello.aop.order 패키지와 하위 패키지
     @Pointcut("execution(* hello.aop.order..*(..))")
     private void allOrder(){} // pointcut signature
+
+    /**
+     * allOrder() 포인트컷은 hello.aop.order 패키지와 하위 패키지를 대상으로 한다.
+     * allService() 포인트컷은 타입 이름 패턴이 *Service 를 대상으로 하는데 쉽게 이야기해서 XxxService 처럼 Service 로 끝나는 것을 대상으로 한다.
+     * *Servi* 과 같은 패턴도 가능하다. 여기서 타입 이름 패턴이라고 한 이유는 클래스, 인터페이스에 모두 적용되기 때문이다.
+     * @Around("allOrder() && allService()") 포인트컷은 이렇게 조합할 수 있다. && (AND), || (OR), ! (NOT) 3가지 조합이 가능하다.
+     * hello.aop.order 패키지와 하위 패키지 이면서 타입 이름 패턴이 *Service 인 것을 대상으로 한다.
+     * 결과적으로 doTransaction() 어드바이스는 OrderService 에만 적용된다.
+     * doLog() 어드바이스는 OrderService , OrderRepository 에 모두 적용된다.
+     *
+     * orderService : doLog() , doTransaction() 어드바이스 적용
+     * orderRepository : doLog() 어드바이스 적용
+     *
+     */
+    // 클래스 이름 패턴이 *Service ( 보통의 트랜잭션 이라고 생각하고 구현 )
+    @Pointcut("execution(* *..*Service.*(..))")
+    private void allService(){}
+
 
     /**
      *  - @Around 애노테이션의 값인 execution(* hello.aop.order..*(..)) 는 포인트컷이 된다.
@@ -38,6 +59,23 @@ public class AspectV2 {
     public Object doLog(ProceedingJoinPoint joinPoint) throws Throwable {
         log.info("[log] {}", joinPoint.getSignature()); // join point signature
         return joinPoint.proceed();
+    }
+
+    // hello.aop.order 패키지와 하위 패키지 이면서 클래스 이름 패턴이 *Service
+    @Around("allOrder() && allService()")
+    public Object doTransaction(ProceedingJoinPoint joinPoint) throws Throwable {
+
+        try {
+            log.info("[트랜잭션 시작] {}", joinPoint.getSignature());
+            Object result = joinPoint.proceed();
+            log.info("[트랜잭션 커밋] {}", joinPoint.getSignature());
+            return result;
+        } catch (Exception e) {
+            log.info("[트랜잭션 롤백] {}", joinPoint.getSignature());
+            throw e;
+        } finally {
+            log.info("[리소스 릴리즈] {}", joinPoint.getSignature());
+        }
     }
 
 }
