@@ -108,6 +108,9 @@
  - 포인트컷 표현식은 AspectJ pointcut expression 즉 AspectJ 가 제공하는 포인트컷 표현식을 줄여서 말하는 것이다.
  - 포인트컷 지시자의 종류 종류
    - execution : 메소드 실행 조인 포인트를 매칭한다. 스프링 AOP에서 가장 많이 사용하고, 기능도 복잡하다.
+     - execution(modifiers-pattern? ret-type-pattern declaring-type-pattern?name-pattern(param-pattern) throws-pattern?) -> ? 는 생략 가능
+     - execution(접근제어자? 반환타입 선언타입?메서드이름(파라미터) 예외?)
+     - ex) public java.lang.String hello.aop.member.MemberServiceImpl.hello(java.lang.String)
    - within : 특정 타입 내의 조인 포인트를 매칭한다.
    - args : 인자가 주어진 타입의 인스턴스인 조인 포인트
    - this : 스프링 빈 객체(스프링 AOP 프록시)를 대상으로 하는 조인 포인트
