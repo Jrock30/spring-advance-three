@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 
+/**
+ * 메서드에 적용된 어노테이션
+ */
 @Slf4j
 @Import(AtAnnotationTest.AtAnnotationAspect.class)
 @SpringBootTest

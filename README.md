@@ -106,7 +106,7 @@
 ## 포인트컷 지시자(Pointcut Designator)
  - 포인트컷 표현식은 execution 같은 포인트컷 지시자(Pointcut Designator)로 시작한다. 줄여서 PCD 라 한다.
  - 포인트컷 표현식은 AspectJ pointcut expression 즉 AspectJ 가 제공하는 포인트컷 표현식을 줄여서 말하는 것이다.
- - 포인트컷 지시자의 종류 종류
+ - 포인트컷 지시자의 종류 및 활용
    - execution : 메소드 실행 조인 포인트를 매칭한다. 스프링 AOP에서 가장 많이 사용하고, 기능도 복잡하다.
      - execution(modifiers-pattern? ret-type-pattern declaring-type-pattern?name-pattern(param-pattern) throws-pattern?) -> ? 는 생략 가능
      - execution(접근제어자? 반환타입 선언타입?메서드이름(파라미터) 예외?)
@@ -134,3 +134,9 @@
    - bean : 스프링 전용 포인트컷 지시자, 빈의 이름으로 포인트컷을 지정한다.
      - 스프링 전용 포인트컷 지시자, 빈의 이름으로 지정한다.
      - 스프링 빈의 이름으로 AOP 적용 여부를 지정한다. 이것은 스프링에서만 사용할 수 있는 특별한 지시자이다.
+   - 매개변수 전달
+     - this -> 스프링 빈 객체(스프링 AOP 프록시)를 대상으로 하는 조인 포인트
+     - target -> Target 객체(스프링 AOP 프록시가 가르키는 실제 대상)를 대상으로 하는 조인 포인트
+     - @target, @within -> 타입의 애노테이션을 전달 받는다.(클래스)
+     - @annotation (이게 많이 씀)
+       - 메서드의 애노테이션을 전달 받는다. annotation.value() 로 해당 애노테이션의 값을 출력

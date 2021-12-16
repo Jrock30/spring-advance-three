@@ -12,6 +12,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 
 /**
+ * 클래스에 적용 된 어노테이션
+ *
  * 어노테이션 타겟(@ClassAop) 와 같은 것 들은 정적으로 테스트가 안되고 동적으로 런타임에 테스트가 가능하다.
  * 즉 @SpringBootTest, @Aspect, @Bean 들이 필요하다.
  *
