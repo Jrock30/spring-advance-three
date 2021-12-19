@@ -126,7 +126,7 @@ public class ExecutionTest {
     @Test
     public void packageExactMatchSubPackage() throws Exception {
         /**
-         * 패키지가 일치하지 않는 조건 (타입, 메서드에 패턴 적용)
+         * 패키지가 일치하지 하는 조건 (타입, 메서드에 패턴 적용)
          *
          * . : 정확하게 해당 위치의 패키지
          * .. : 해당 위치의 패키지와 그 하위 패키지도 포함

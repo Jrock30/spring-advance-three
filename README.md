@@ -141,3 +141,5 @@
      - @annotation (이게 많이 씀)
        - 메서드의 애노테이션을 전달 받는다. annotation.value() 로 해당 애노테이션의 값을 출력
  - 스프링이 제공하는 @Transactional 은 가장 대표적인 AOP 이다.
+ 
+## 실무 주의사항
